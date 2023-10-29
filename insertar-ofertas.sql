@@ -9,6 +9,7 @@ CREATE TABLE alumnado.padron_oferta_alumno
     id_padron_oferta integer NOT NULL,
     id_alumno integer, 
     año integer NOT NULL,
+    grado integer NOT NULL,
     PRIMARY KEY (id_padron_oferta_alumno)
 );
 
@@ -23,8 +24,9 @@ INSERT INTO alumnado.padron_oferta_alumno(
     id_padron_oferta_alumno,
     id_padron_oferta,
     id_alumno,
-    año
-) SELECT nextval('serial'), id_padron_oferta, id_alumno, 2021
+    año,
+    grado
+) SELECT nextval('serial'), id_padron_oferta, id_alumno, 2021, CAST(grado2021 AS INTEGER)
     FROM alumnado.alumnos talumnos
     JOIN alumnado.alumnos_csv talumnos_csv ON talumnos.dni = CAST(talumnos_csv._id AS INTEGER)
     JOIN alumnado.padron_oferta 
@@ -41,8 +43,9 @@ INSERT INTO alumnado.padron_oferta_alumno (
     id_padron_oferta_alumno,
     id_padron_oferta,
     id_alumno,
-    año
-) SELECT nextval('serial'), id_padron_oferta, id_alumno, 2022
+    año,
+	grado
+) SELECT nextval('serial'), id_padron_oferta, id_alumno, 2022, CAST(grado2022 AS INTEGER)
     FROM alumnado.alumnos talumnos
     JOIN alumnado.alumnos_csv talumnos_csv ON talumnos.dni = CAST(talumnos_csv._id AS INTEGER)
     JOIN alumnado.padron_oferta 
