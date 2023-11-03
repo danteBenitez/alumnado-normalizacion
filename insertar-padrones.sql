@@ -14,5 +14,3 @@ INSERT INTO alumnado.padron (cueanexo, id_jurisdiccion, id_sector,
 	JOIN alumnado.ambito tambito ON tpadron.ambito = tambito.descripcion
 	LEFT JOIN alumnado.codigo_postal tcod_postal ON tcod_postal.codigo = tpadron.cod_postal
 
-	
-	
