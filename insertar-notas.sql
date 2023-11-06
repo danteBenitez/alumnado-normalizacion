@@ -8,7 +8,7 @@ INSERT INTO alumnado.notas (
 ) SELECT 
     nextval('serial'),
     id_periodo_materia_alumno,
-    nota
+    "trimestre1[0]"
   FROM alumnado.periodo_materia_alumno tpmatal
     JOIN alumnado.padron_oferta_alumno tpofalu
         USING(id_padron_oferta_alumno)
@@ -24,4 +24,5 @@ INSERT INTO alumnado.notas (
         ON 
             CAST(tnotas_csv."_id.dni" AS INTEGER) = talumnos.dni AND
             tmaterias.codigo_materia = CONCAT(tnotas_csv."_id.plan", tnotas_csv."_id.anio_que_cursa", tnotas_csv."_id.materia_nro") AND
-            tnotas_csv."_id.anio_lectivo" = tpofalu.año;
+            CAST(tnotas_csv."_id.anio_lectivo" AS INTEGER) = tpofalu.año
+    WHERE id_tipo_periodo = 1;
