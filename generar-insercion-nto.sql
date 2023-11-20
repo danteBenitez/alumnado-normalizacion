@@ -20,7 +20,8 @@ BEGIN
 		ON talumno_plan.id_alumno = talumnos.id_alumno
 		AND talumno_plan.año = tpofalu.año
     JOIN alumnado.materias tmaterias
-        USING(id_plan)
+        ON tmaterias.id_plan = talumno_plan.id_plan
+        AND tpmatal.id_materia = tmaterias.id_materia
     JOIN alumnado.padron_oferta tpadron_oferta
         USING(id_padron_oferta)
     JOIN alumnado.notas_csv tnotas_csv
@@ -28,7 +29,8 @@ BEGIN
             CAST(tnotas_csv."_id.dni" AS INTEGER) = talumnos.dni AND
             tmaterias.codigo_materia = CONCAT(tnotas_csv."_id.plan", tnotas_csv."_id.anio_que_cursa", tnotas_csv."_id.materia_nro") AND
             CAST(tnotas_csv."_id.anio_lectivo" AS INTEGER) = tpofalu.año
-    WHERE id_tipo_periodo = 1 AND nro_periodo = ' || quarter;
+            AND tnotas_csv."_id.anio_lectivo"::integer = talumno_plan.año
+    WHERE id_tipo_periodo = 1 AND "trimestre'|| quarter ||'[' || note_idx || ']" IS NOT NULL AND nro_periodo = ' || quarter;
 		END LOOP;
 	END LOOP;
 	
